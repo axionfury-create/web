@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solo para ti ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Inter',sans-serif;
+background:#0f0f14;
+color:#f5f5f5;
+overflow-x:hidden;
+}
+
+/* ===== LOGIN ===== */
+
+#login{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:radial-gradient(circle at center,#1a1a25,#0f0f14);
+}
+
+.login-box{
+background:rgba(255,255,255,0.05);
+padding:50px;
+border-radius:20px;
+backdrop-filter:blur(20px);
+text-align:center;
+width:90%;
+max-width:400px;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+input{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+background:rgba(255,255,255,0.1);
+color:white;
+outline:none;
+text-align:center;
+}
+
+button{
+margin-top:15px;
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#a855f7;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#9333ea;
+}
+
+.hint{
+margin-top:15px;
+font-size:12px;
+opacity:0.4;
+cursor:pointer;
+}
+
+/* ===== NAV ===== */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:center;
+gap:35px;
+padding:20px;
+background:rgba(15,15,20,0.7);
+backdrop-filter:blur(15px);
+z-index:1000;
+flex-wrap:wrap;
+}
+
+nav a{
+color:#ddd;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#a855f7;
+}
+
+/* ===== SECTIONS ===== */
+
+section{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:120px 20px 60px;
+text-align:center;
+}
+
+h2{
+font-family:'Playfair Display',serif;
+font-size:40px;
+margin-bottom:25px;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+padding:35px;
+border-radius:20px;
+backdrop-filter:blur(15px);
+max-width:750px;
+border:1px solid rgba(255,255,255,0.1);
+margin:15px 0;
+}
+
+/* ===== GALERÍA ===== */
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+width:100%;
+max-width:1100px;
+}
+
+.photo{
+position:relative;
+cursor:pointer;
+}
+
+.photo img{
+width:100%;
+border-radius:15px;
+transition:0.4s;
+}
+
+.photo:hover img{
+transform:scale(1.05);
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+display:none;
+z-index:2000;
+}
+
+.overlay img{
+max-width:90%;
+max-height:60vh;
+border-radius:15px;
+margin-bottom:20px;
+}
+
+/* ===== QUIZ ===== */
+
+.quiz-container{
+max-width:600px;
+width:100%;
+}
+
+.quiz-container button{
+display:block;
+width:100%;
+margin:8px 0;
+padding:12px;
+border:none;
+border-radius:15px;
+background:#a855f7;
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.quiz-container button:hover{
+background:#9333ea;
+}
+
+/* ===== CORAZONES ===== */
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+to{
+transform:translateY(-110vh);
+opacity:0;
+}
+}
+
+/* ===== CONTADOR ===== */
+
+#contador{
+font-size:24px;
+margin-top:20px;
+font-weight:bold;
+}
+
+/* ===== BOTÓN MÚSICA ===== */
+
+#musicButton{
+margin-top:25px;
+padding:12px 25px;
+border:none;
+border-radius:25px;
+background:#f43f5e;
+color:white;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+#musicButton:hover{
+background:#e11d48;
+}
+
+/* ===== HIDDEN CONTENT ===== */
+
+#content{
+display:none;
+}
+
+@media(max-width:700px){
+nav{
+gap:15px;
+font-size:14px;
+}
+h2{
+font-size:28px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+<div class="login-box">
+<h2>Solo tú puedes entrar</h2>
+<p>Hay algo que te regalé cuando cumplimos un mes...</p>
+<input type="password" id="password" placeholder="Escríbelo aquí">
+<button onclick="checkPassword()">Entrar</button>
+<div class="hint" onclick="showHint()">...</div>
+<p id="hintText" style="display:none; font-size:12px; opacity:0.6;">Fue nuestro primer mes y es suave.</p>
+<p id="error" style="color:#ff6b6b;"></p>
+</div>
+</div>
+
+<!-- CONTENIDO -->
+<div id="content">
+
+<nav>
+<a href="#inicio">Inicio</a>
+<a href="#galeria">Fotos</a>
+<a href="#cosas">Cosas que amo</a>
+<a href="#poemas">Poemas</a>
+<a href="#juego">Juego</a>
+<a href="#contador">Tiempo juntos</a>
+<a href="#carta">Carta</a>
+<a href="#sorpresa">Sorpresa</a>
+</nav>
+
+<!-- SECCIONES -->
+<section id="inicio">
+<h2>Hola preciosa</h2>
+<div class="card">
+<p>Eres divertida y cariñosa conmigo, y tu forma de mirarme me deja sin palabras.</p>
+<p>Tu sonrisa es lo más bonito que he visto jamás.</p>
+<p>Cuando me miras y no dices nada... ahí es donde más bonito me parece todo.</p>
+<button id="musicButton" onclick="openSong()">🎵 Escuchar nuestra canción</button>
+</div>
+</section>
+
+<section id="galeria">
+<h2>Momentos tuyos</h2>
+<div class="gallery">
+
+<div class="photo" onclick="openPhoto('fotos/Amor 1.jpeg','Aquí fue imposible no quedarme mirándote más de la cuenta.')">
+<img src="fotos/Amor 1.jpeg">
+</div>
+
+<div class="photo" onclick="openPhoto('fotos/Amor 2.jpeg','Ese día entendí que me gustas más de lo que digo.')">
+<img src="fotos/Amor 2.jpeg">
+</div>
+
+<div class="photo" onclick="openPhoto('fotos/chica preciosa.jpeg','Tu sonrisa aquí debería estar prohibida.')">
+<img src="fotos/chica preciosa.jpeg">
+
+
+</div>
+</section>
+
+<section id="cosas">
+<h2>Cosas que amo de ti</h2>
+<div class="card">
+<ul style="list-style:none; text-align:left; line-height:1.8; font-size:18px;">
+<li>💖 Tu sonrisa</li>
+<li>💖 Cuando me miras sin decir nada</li>
+<li>💖 Cómo eres solo conmigo</li>
+<li>💖 Tu forma de hacerme reír</li>
+<li>💖 Cada pequeño detalle que haces</li>
+<li>💖 Tus abrazos</li>
+<li>💖 Tu risa</li>
+</ul>
+</div>
+</section>
+
+<section id="poemas">
+<h2>Pequeñas cosas</h2>
+<div class="card">
+<p>No necesito palabras grandes.<br>
+Me basta con verte feliz.</p>
+</div>
+<div class="card">
+<p>Hay miradas que duran segundos,<br>
+pero se quedan para siempre.</p>
+</div>
+</section>
+
+<section id="juego">
+<h2>Cuánto me conoces</h2>
+<div class="quiz-container card">
+<p id="question"></p>
+<div id="answers"></div>
+<p id="result"></p>
+</div>
+</section>
+
+<section id="contador">
+<h2>Tiempo juntos</h2>
+<p id="contador"></p>
+</section>
+
+<section id="carta">
+<h2>Para ti</h2>
+<div class="card" id="letterCard">
+<p id="letter"></p>
+</div>
+</section>
+
+<section id="sorpresa">
+<h2>Gracias por existir</h2>
+<div class="card">
+<p>❤️❤️❤️</p>
+</div>
+</section>
+
+</div>
+
+<!-- OVERLAY FOTO -->
+<div class="overlay" id="overlay" onclick="closeOverlay()">
+<img id="overlayImg">
+<p id="overlayText" style="color:white; font-size:20px; text-align:center;"></p>
+<button onclick="closeOverlay()" style="padding:10px 20px; border:none; border-radius:20px; background:#a855f7; color:white; cursor:pointer;">Cerrar</button>
+</div>
+
+<script>
+// LOGIN
+function checkPassword(){
+if(document.getElementById("password").value==="coco"){
+document.getElementById("login").style.display="none";
+document.getElementById("content").style.display="block";
+startHearts();
+startLetter();
+startCounter();
+loadQuiz();
+}else{
+document.getElementById("error").innerText="No es eso...";
+}
+}
+function showHint(){document.getElementById("hintText").style.display="block";}
+
+// OVERLAY GALERÍA
+function openPhoto(src,text){
+document.getElementById("overlay").style.display="flex";
+document.getElementById("overlayImg").src=src;
+document.getElementById("overlayText").innerText=text;
+}
+function closeOverlay(){
+document.getElementById("overlay").style.display="none";
+}
+
+// CORAZONES
+function startHearts(){
+setInterval(()=>{
+let heart=document.createElement("div");
+heart.className="heart";
+heart.style.left=Math.random()*100+"vw";
+heart.innerText="❤";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+},900);
+}
+
+// QUIZ
+const quiz=[
+{q:"¿Qué es lo que más me enamora de ti?",a:["Tu sonrisa","Tu enfado","Que odias a todos"],c:0},
+{q:"¿Cuál fue uno de los días más especiales?",a:["Un paseo cualquiera","Tu cumpleaños en el Oceanográfico","Un lunes normal"],c:1},
+{q:"¿Qué me encanta cuando haces?",a:["Cuando me miras en silencio","Cuando te enfadas","Cuando ignoras el móvil"],c:0},
+{q:"¿Qué regalo del primer mes significó mucho?",a:["Coco","Flores","Pelota"],c:0},
+{q:"¿Qué me hace sonreír más?",a:["Tus mensajes","Tu sonrisa","Tus bromas"],c:1},
+{q:"¿Cuál es nuestro lugar especial?",a:["Casa","Oceanográfico","Parque"],c:1}
+];
+
+let current=0;
+let score=0;
+
+function loadQuiz(){
+if(current<quiz.length){
+document.getElementById("question").innerText=quiz[current].q;
+let answers="";
+quiz[current].a.forEach((ans,i)=>{answers+=`<button onclick="checkAnswer(${i})">${ans}</button>`;});
+document.getElementById("answers").innerHTML=answers;
+document.getElementById("result").innerText="";
+}else{
+document.getElementById("question").innerText="Resultado final:";
+if(score===quiz.length){
+document.getElementById("answers").innerHTML="Perfecto ❤️ Me conoces demasiado bien!";
+}else{
+document.getElementById("answers").innerHTML=`Puntaje: ${score}/${quiz.length}. Te quiero igual 😌`;
+}
+}
+}
+
+function checkAnswer(i){
+if(i===quiz[current].c){score++;}
+current++;
+loadQuiz();
+}
+
+// CONTADOR
+function startCounter(){
+function update(){
+const start=new Date("2025-11-20T00:00:00");
+const now=new Date();
+let diff=now-start;
+let days=Math.floor(diff/86400000);
+diff%=86400000;
+let hours=Math.floor(diff/3600000);
+diff%=3600000;
+let minutes=Math.floor(diff/60000);
+let seconds=Math.floor((diff%60000)/1000);
+document.getElementById("contador").innerText=`${days} días, ${hours} horas, ${minutes} min, ${seconds} seg juntos`;
+}
+update();
+setInterval(update,1000);
+}
+
+// CARTA ANIMADA
+const letterText="Gracias por aparecer en mi vida. Gracias por cómo eres conmigo. Gracias por dejarme formar parte de tu mundo. No sé qué nos espera, pero sí sé que quiero seguir construyéndolo contigo.";
+let letterIndex=0;
+function startLetter(){
+let letter=document.getElementById("letter");
+function type(){
+if(letterIndex<letterText.length){
+letter.innerHTML+=letterText[letterIndex];
+letterIndex++;
+setTimeout(type,40);
+}
+}
+type();
+}
+
+// BOTÓN MÚSICA
+function openSong(){
+window.open("https://www.youtube.com/watch?v=R5cbxTPZNL0","_blank");
+}
+</script>
+
+</body>
+</html>
